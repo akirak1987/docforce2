@@ -3,3 +3,4 @@
 build
 output/*.xlsx
 output/test/*.xlsx
+.java-version
