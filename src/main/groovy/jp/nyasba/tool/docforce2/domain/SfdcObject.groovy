@@ -9,47 +9,47 @@ import jp.nyasba.tool.docforce2.domain.validation.SfdcValidation
 import jp.nyasba.tool.docforce2.domain.validation.SfdcValidationFactory
 
 /**
- * CustomObjectメタデータの読み取り結果（XML）
+ * Objectメタデータの読み取り結果（XML）
  */
-class SfdcCustomObject {
+class SfdcObject {
   def fileName
   def xml
 
-  def SfdcCustomObject(String fileName, String rawXml){
+  def SfdcObject(String fileName, String rawXml){
     this.fileName = fileName
     def slurper = new XmlSlurper()
     xml = slurper.parseText(rawXml)
   }
 
   def String title(){
-   return "${displayLabel()}(${apiLookupName()})"
+    return "${表示ラベル()}(${API参照名()})"
   }
-
-  def String displayLabel(){
+  
+  def String 表示ラベル(){
     return xml.label
   }
 
-  def String apiLookupName(){
+  def String API参照名(){
     return fileName.tokenize('.').get(0)
   }
 
-  def String discription(){
+  def String 説明(){
     return xml.description
   }
 
   def SfdcNameField NameField(){
     return new SfdcNameField(xml.nameField)
   }
-
-  def List<SfdcRecordType> recordTypeList(){
+  
+  def List<SfdcRecordType> レコードタイプリスト() {
     return xml.recordTypes.collect { SfdcRecordTypeFactory.create(it) }
   }
-
-  def List<SfdcField> fieldList() {
+  
+  def List<SfdcField> Fieldリスト() {
     return xml.fields.collect { SfdcCustomFieldFactory.create(it) }
   }
 
-  def List<SfdcValidation> validationRuleList() {
+  def List<SfdcValidation> 入力規則リスト() {
     return xml.validationRules.collect { SfdcValidationFactory.create(it) }
   }
 }

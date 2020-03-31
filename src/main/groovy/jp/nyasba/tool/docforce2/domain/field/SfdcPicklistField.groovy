@@ -6,94 +6,92 @@ import groovy.util.slurpersupport.GPathResult
  * 選択リストフィールド
  */
 class SfdcPicklistField implements SfdcField {
-    
-    def fieldXml
-    
-    def SfdcPicklistField(GPathResult fieldXml) {
-        this.fieldXml = fieldXml
+  def fieldXml
+
+  def SfdcPicklistField(GPathResult fieldXml) {
+    this.fieldXml = fieldXml
+  }
+
+  @Override
+  def String displayLabel() {
+    return fieldXml.label
+  }
+
+  @Override
+  String apiLookupName() {
+    return fieldXml.fullName
+  }
+
+  @Override
+  String type() {
+    if(fieldXml.picklist.restrictedPicklist == "true"){
+      return  "${fieldXml.type}\n(Restricted)"
     }
-    
-    @Override
-    def String ラベル() {
-        return fieldXml.label
+    return fieldXml.type
+  }
+
+  @Override
+  String length() {
+    return "-"
+  }
+
+  @Override
+  String defaultValue(){
+    // グローバル選択リストを使う場合
+    if(fieldXml.globalPicklist.text() != ""){
+      return "グローバル選択リスト「${fieldXml.globalPicklist}」を利用"
     }
-    
-    @Override
-    String API参照名() {
-        return fieldXml.fullName
+
+    // 通常の選択リスト
+    return fieldXml.picklist.picklistValues
+            .collect { new SfdcPicklistValue(it).toString() }
+            .join("\n")
+  }
+
+  @Override
+  String formula() {
+    return "" // 数式は設定できない
+  }
+
+  @Override
+  String helpText() {
+    return fieldXml.inlineHelpText
+  }
+
+  @Override
+  String required() {
+    return fieldXml.required == "true" ? "○" : ""
+  }
+
+  @Override
+  String externalId() {
+    return fieldXml.externalId == "true" ? "○" : ""
+  }
+
+  @Override
+  String discription() {
+    return fieldXml.description
+  }
+
+  public class SfdcPicklistValue{
+    def xml
+
+    def SfdcPicklistValue(GPathResult xml) {
+      this.xml = xml
     }
-    
-    @Override
-    String タイプ() {
-        if(fieldXml.picklist.restrictedPicklist == "true"){
-            return  "${fieldXml.type}\n(Restricted)"
-        }
-        return fieldXml.type
+
+    public String choiceName(){
+      return xml.fullName
     }
-    
-    @Override
-    String length() {
-        return "-"
+    public boolean isDefault(){
+      return (xml.default == "true")
     }
-    
-    @Override
-    String デフォルト値or選択リスト値() {
-        
-        // グローバル選択リストを使う場合
-        if(fieldXml.globalPicklist.text() != ""){
-            return "グローバル選択リスト「${fieldXml.globalPicklist}」を利用"
-        }
-        
-        // 通常の選択リスト
-        return fieldXml.picklist.picklistValues
-                .collect { new SfdcPicklistValue(it).toString() }
-                .join("\n")
+
+    public String toString(){
+      if (isDefault()){
+        return choiceName() + " …default"
+      }
+      return choiceName()
     }
-    
-    @Override
-    String 数式() {
-        return "" // 数式は設定できない
-    }
-    
-    @Override
-    String ヘルプテキスト() {
-        return fieldXml.inlineHelpText
-    }
-    
-    @Override
-    String 必須() {
-        return fieldXml.required == "true" ? "○" : ""
-    }
-    
-    @Override
-    String 外部ID() {
-        return fieldXml.externalId == "true" ? "○" : ""
-    }
-    
-    @Override
-    String 説明() {
-        return fieldXml.description
-    }
-    
-    public class SfdcPicklistValue{
-        def xml
-    
-        def SfdcPicklistValue(GPathResult xml) {
-            this.xml = xml
-        }
-        
-        public String 選択肢名(){
-            return xml.fullName
-        }
-        public boolean isDefault(){
-            return (xml.default == "true")
-        }
-        
-        public String toString(){
-            if (isDefault()){
-                return 選択肢名() + " …default"
-            }
-            return 選択肢名()
-        }
-    }
+  }
 }

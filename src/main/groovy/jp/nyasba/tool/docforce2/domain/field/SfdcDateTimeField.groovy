@@ -6,60 +6,59 @@ import groovy.util.slurpersupport.GPathResult
  * 日付/時間フィールド
  */
 class SfdcDateTimeField implements SfdcField {
+  def fieldXml
 
-    def fieldXml
+  def SfdcDateTimeField(GPathResult fieldXml){
+    this.fieldXml = fieldXml
+  }
 
-    def SfdcDateTimeField(GPathResult fieldXml){
-        this.fieldXml = fieldXml
-    }
+  @Override
+  def String displayLabel(){
+    return fieldXml.label
+  }
 
-    @Override
-    def String ラベル(){
-        return fieldXml.label
-    }
+  @Override
+  String apiLookupName() {
+    return fieldXml.fullName
+  }
 
-    @Override
-    String API参照名() {
-        return fieldXml.fullName
-    }
+  @Override
+  String type() {
+    return fieldXml.type
+  }
 
-    @Override
-    String タイプ() {
-        return fieldXml.type
-    }
+  @Override
+  String length() {
+    return "-"
+  }
 
-    @Override
-    String length() {
-        return "-"
-    }
+  @Override
+  String defaultValue(){
+    return fieldXml.defaultValue
+  }
 
-    @Override
-    String デフォルト値or選択リスト値() {
-        return fieldXml.defaultValue
-    }
+  @Override
+  String formula() {
+    return fieldXml.formula
+  }
 
-    @Override
-    String 数式() {
-        return fieldXml.formula
-    }
+  @Override
+  String helpText(){
+    return fieldXml.inlineHelpText
+  }
 
-    @Override
-    String ヘルプテキスト() {
-        return fieldXml.inlineHelpText
-    }
+  @Override
+  String required() {
+    return  fieldXml.required == "true" ? "○" : ""
+  }
 
-    @Override
-    String 必須() {
-        return  fieldXml.required == "true" ? "○" : ""
-    }
+  @Override
+  String externalId() {
+    return "" // 外部IDにはできない
+  }
 
-    @Override
-    String 外部ID() {
-        return "" // 外部IDにはできない
-    }
-
-    @Override
-    String 説明() {
-        return fieldXml.description
-    }
+  @Override
+  String discription() {
+    return fieldXml.description
+  }
 }

@@ -6,65 +6,64 @@ import groovy.util.slurpersupport.GPathResult
  * 名前フィールド
  */
 class SfdcNameField implements SfdcField{
+  SfdcField field
 
-    SfdcField field
+  def SfdcNameField(GPathResult fieldXml){
+    this.field = SfdcCustomFieldFactory.create(fieldXml)
+  }
 
-    def SfdcNameField(GPathResult fieldXml){
-        this.field = SfdcCustomFieldFactory.create(fieldXml)
-    }
+  /*
+   * API参照名をName固定、必須項目とし、
+   * その他はカスタム項目と同じロジックで判断する
+   */
 
-    /*
-     * API参照名をName固定、必須項目とし、
-     * その他はカスタム項目と同じロジックで判断する
-     */
+  @Override
+  def String displayLabel(){
+    return this.field.displayLabel()
+  }
 
-    @Override
-    def String ラベル(){
-        return this.field.ラベル()
-    }
+  @Override
+  String apiLookupName() {
+    return "Name"
+  }
 
-    @Override
-    String API参照名() {
-        return "Name"
-    }
+  @Override
+  String type() {
+    return this.field.type()
+  }
 
-    @Override
-    String タイプ() {
-        return this.field.タイプ()
-    }
+  @Override
+  String length() {
+    return this.field.length()
+  }
 
-    @Override
-    String length() {
-        return this.field.length()
-    }
+  @Override
+  String discription() {
+    return this.field.discription()
+  }
 
-    @Override
-    String 説明() {
-        return this.field.説明()
-    }
+  @Override
+  String defaultValue(){
+    return this.field.defaultValue()
+  }
 
-    @Override
-    String デフォルト値or選択リスト値() {
-        return this.field.デフォルト値or選択リスト値()
-    }
+  @Override
+  String required() {
+    return  "○"
+  }
 
-    @Override
-    String 必須() {
-        return  "○"
-    }
+  @Override
+  String externalId() {
+    return this.field.externalId()
+  }
 
-    @Override
-    String 外部ID() {
-        return this.field.外部ID()
-    }
+  @Override
+  String formula() {
+    return this.field.formula()
+  }
 
-    @Override
-    String 数式() {
-        return this.field.数式()
-    }
-
-    @Override
-    String ヘルプテキスト() {
-        return this.field.ヘルプテキスト()
-    }
+  @Override
+  String helpText() {
+    return this.field.helpText()
+  }
 }
