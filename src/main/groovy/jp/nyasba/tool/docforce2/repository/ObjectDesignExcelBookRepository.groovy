@@ -20,7 +20,7 @@ class ObjectDesignExcelBookRepository {
 
   private String outputDir
   private String author
-  
+
   public ObjectDesignExcelBookRepository(String outputDir = "output/", String author = "aaa"){
     this.outputDir = outputDir.endsWith("/") ? outputDir : outputDir + "/"
     this.author = author
@@ -38,7 +38,7 @@ class ObjectDesignExcelBookRepository {
 
     new TitleSheetRepository(author).createSheet(workbook,customObject)
     new ObjectSheetRepository().createSheet(workbook, customObject)
-    new CustomFiledSheetRepository().createSheet(workbook, customObject)
+    new CustomFieldSheetRepository().createSheet(workbook, customObject)
     new ValidationSheetRepository().createSheet(workbook, customObject)
     new ApprovalProcessSheetRepository().createSheets(workbook, approvalProcessList)
     new WorkflowRuleSheetRepository().createSheet(workbook, workflow)

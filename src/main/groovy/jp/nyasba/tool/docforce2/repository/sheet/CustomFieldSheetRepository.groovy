@@ -13,7 +13,7 @@ import org.apache.poi.ss.usermodel.Workbook
 /**
  * Excelの「カスタム項目」シートを作成するためのRepository
  */
-class CustomFiledSheetRepository {
+class CustomFieldSheetRepository {
   def createSheet(Workbook workbook, SfdcCustomObject customObject) {
     CellStyle[] style = [
       CellStyleUtil.normal(workbook),
@@ -46,7 +46,7 @@ class CustomFiledSheetRepository {
     CellUtil.setValue(sheet, rowNumber, i++, customField.helpText(), style[0])
     CellUtil.setValue(sheet, rowNumber, i++, customField.required(), style[1])
     CellUtil.setValue(sheet, rowNumber, i++, customField.externalId(), style[1])
-    CellUtil.setValue(sheet, rowNumber, i++, customField.discription(), style[0])
+    CellUtil.setValue(sheet, rowNumber, i++, customField.description(), style[0])
   }
 
   def void printConfigure(Sheet sheet){

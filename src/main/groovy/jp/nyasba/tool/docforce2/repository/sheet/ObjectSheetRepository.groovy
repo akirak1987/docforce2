@@ -23,7 +23,7 @@ class ObjectSheetRepository {
     objectSheet.createRow(2)
     CellUtil.setValue(objectSheet, 2, 0, customObject.displayLabel(), normal)
     CellUtil.setValue(objectSheet, 2, 1, customObject.apiLookupName(), normal)
-    CellUtil.setValue(objectSheet, 2, 2, customObject.discription(), normal)
+    CellUtil.setValue(objectSheet, 2, 2, customObject.description(), normal)
 
     List<SfdcRecordType> recordTypeList = customObject.recordTypeList()
     recordTypeList.eachWithIndex {
@@ -43,7 +43,7 @@ class ObjectSheetRepository {
     sheet.createRow(rowNumber)
     CellUtil.setValue(sheet, rowNumber, 0, recordType.displayLabel(), style)
     CellUtil.setValue(sheet, rowNumber, 1, recordType.apiLookupName(),  style)
-    CellUtil.setValue(sheet, rowNumber, 2, recordType.discription(), style)
+    CellUtil.setValue(sheet, rowNumber, 2, recordType.description(), style)
   }
 
   def void printConfigure(Sheet sheet){

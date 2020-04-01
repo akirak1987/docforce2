@@ -38,8 +38,8 @@ class SfdcNameField implements SfdcField{
   }
 
   @Override
-  String discription() {
-    return this.field.discription()
+  String description() {
+    return this.field.description()
   }
 
   @Override

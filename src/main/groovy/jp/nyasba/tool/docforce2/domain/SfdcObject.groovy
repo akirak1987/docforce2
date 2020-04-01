@@ -22,34 +22,34 @@ class SfdcObject {
   }
 
   def String title(){
-    return "${表示ラベル()}(${API参照名()})"
+    return "${displayLabel()}(${apiLookupName()})"
   }
-  
-  def String 表示ラベル(){
+
+  def String displayLabel(){
     return xml.label
   }
 
-  def String API参照名(){
+  def String apiLookupName(){
     return fileName.tokenize('.').get(0)
   }
 
-  def String 説明(){
+  def String description(){
     return xml.description
   }
 
   def SfdcNameField NameField(){
     return new SfdcNameField(xml.nameField)
   }
-  
-  def List<SfdcRecordType> レコードタイプリスト() {
+
+  def List<SfdcRecordType> recordTypeList() {
     return xml.recordTypes.collect { SfdcRecordTypeFactory.create(it) }
   }
-  
-  def List<SfdcField> Fieldリスト() {
+
+  def List<SfdcField> fieldList() {
     return xml.fields.collect { SfdcCustomFieldFactory.create(it) }
   }
 
-  def List<SfdcValidation> 入力規則リスト() {
+  def List<SfdcValidation> validationRuleList() {
     return xml.validationRules.collect { SfdcValidationFactory.create(it) }
   }
 }

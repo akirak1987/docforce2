@@ -20,7 +20,7 @@ class SfdcValidation {
     return fieldXml.active == "true"
   }
 
-  def String discription(){
+  def String description(){
     return fieldXml.description
   }
 

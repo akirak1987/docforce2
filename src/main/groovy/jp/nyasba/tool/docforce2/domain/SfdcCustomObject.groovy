@@ -33,7 +33,7 @@ class SfdcCustomObject {
     return fileName.tokenize('.').get(0)
   }
 
-  def String discription(){
+  def String description(){
     return xml.description
   }
 

@@ -58,7 +58,7 @@ class SfdcTextAreaField implements SfdcField {
   }
 
   @Override
-  String discription() {
+  String description() {
     return fieldXml.description
   }
 }

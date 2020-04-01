@@ -41,7 +41,7 @@ class ValidationSheetRepository {
     CellUtil.setValue(sheet, rowNumber, 1, validation.fullName(), style)
     CellUtil.setValue(sheet, rowNumber, 2, validation.errorMessage(), style)
     CellUtil.setValue(sheet, rowNumber, 3, validation.formula(), style)
-    CellUtil.setValue(sheet, rowNumber, 4, validation.discription(), style)
+    CellUtil.setValue(sheet, rowNumber, 4, validation.description(), style)
   }
 
   def void printConfigure(Sheet sheet){

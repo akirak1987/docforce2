@@ -25,7 +25,7 @@ class CellStyleUtil {
             .背景を網掛け()
             .build()
   }
-  
+
   def static CellStyle alignCenter(Workbook workbook) {
     return new CellStyleBuilder(workbook)
             .メイリオ()
@@ -35,7 +35,7 @@ class CellStyleUtil {
             .中央揃え()
             .build()
   }
-  
+
   def static CellStyle title(Workbook workbook) {
     return new CellStyleBuilder(workbook)
             .メイリオ(36)
@@ -45,7 +45,7 @@ class CellStyleUtil {
             .中央揃え()
             .build()
   }
-  
+
   def static CellStyle titleDate(Workbook workbook) {
     return new CellStyleBuilder(workbook)
             .メイリオ(18)
@@ -55,7 +55,7 @@ class CellStyleUtil {
             .右揃え()
             .build()
   }
-  
+
   def static CellStyle sectionTitle(Workbook workbook) {
     return new CellStyleBuilder(workbook)
             .メイリオ(12, ["bold"])
@@ -64,7 +64,7 @@ class CellStyleUtil {
             .改行NG()
             .build()
   }
-  
+
   def static CellStyle tableHeader(Workbook workbook) {
     return new CellStyleBuilder(workbook)
             .メイリオ(11, ["white"])
@@ -74,7 +74,7 @@ class CellStyleUtil {
             .見出し用背景塗りつぶし()
             .build()
   }
-  
+
   def static CellStyle tableHeader2(Workbook workbook) {
     return new CellStyleBuilder(workbook)
             .メイリオ(11)
@@ -84,7 +84,7 @@ class CellStyleUtil {
             .見出し用背景塗りつぶし2()
             .build()
   }
-  
+
   def static CellStyle normalWithTopBold(Workbook workbook) {
     return new CellStyleBuilder(workbook)
             .メイリオ()

@@ -30,7 +30,7 @@ class ApprovalProcessSheetRepository {
     approvalProcessList.eachWithIndex{ SfdcApprovalProcess ap, int i -> createSheet(workbook, ap, i) }
     workbook.removeSheetAt(workbook.getSheetIndex("承認プロセス"))
   }
-  
+
   def createSheet(Workbook workbook, SfdcApprovalProcess ap, int i){
     Sheet sheet = workbook.cloneSheet(workbook.getSheetIndex("承認プロセス"))
     workbook.setSheetName(workbook.getSheetIndex(sheet), "承認プロセス(${i+1})")
@@ -51,7 +51,7 @@ class ApprovalProcessSheetRepository {
     CellUtil.setValueWithCreateRecord(sheet, row++, 0, "申請・取消時", sectionTitle, 24 as float)
     row = アクションリスト(sheet, row, "申請時のアクション", ap.申請時のアクションリスト())
     row = アクションリスト(sheet, row, "取消時のアクション", ap.取消時のアクションリスト())
-    
+
     row++
     CellUtil.setValueWithCreateRecord(sheet, row++, 0, "承認ステップ", sectionTitle, 24 as float)
     row = 承認ステップ(sheet, row, ap.承認ステップリスト())
@@ -63,14 +63,14 @@ class ApprovalProcessSheetRepository {
 
     印刷設定(sheet)
   }
-  
+
   def void 承認プロセス情報1行(Sheet sheet, int row, String key, String value){
     Row r =sheet.createRow(row)
     CellUtil.setValueAndCellsMerged(sheet, row, 0, 1, key, tableHeader)
     CellUtil.setValueAndCellsMerged(sheet, row, 2, 3, value, normal)
     r.setHeightInPoints(RowHeightUtil.optimizedValue(value))
   }
-  
+
   def int アクションリスト(Sheet sheet, int row, String actionLabel, List<SfdcApprovalProcessAction> actionList, int colposition = 1, int merged = 2){
     if(actionList.size() == 0){
       return row
@@ -90,7 +90,7 @@ class ApprovalProcessSheetRepository {
     sheet.addMergedRegion(new CellRangeAddress(originalRow, row -1 , colposition, colposition))
     return row
   }
-  
+
   def int 承認ステップ(Sheet sheet, int row, List<SfdcApprovalProcessStep> stepList){
     sheet.createRow(row)
     CellUtil.setValueAndCellsMerged(sheet, row, 0, 1, "ラベル", tableHeader)
@@ -121,7 +121,7 @@ class ApprovalProcessSheetRepository {
       row++
       row = アクションリスト(sheet, row, "承認時のアクション", it.承認時のアクションリスト,2,4)
       row = アクションリスト(sheet, row, "却下時のアクション", it.却下時のアクションリスト,2,4)
-      
+
       if(originalRow < row-1 ) {
         // アクションリスト行のマージ対象セルにセルスタイルを適用。
         (originalRow + 1 .. row - 1).each {
@@ -133,7 +133,7 @@ class ApprovalProcessSheetRepository {
     }
     return row
   }
-  
+
   def void 印刷設定(Sheet sheet){
     PrintSetup printSetup = sheet.getPrintSetup()
     printSetup.setPaperSize(PrintSetup.A4_PAPERSIZE);

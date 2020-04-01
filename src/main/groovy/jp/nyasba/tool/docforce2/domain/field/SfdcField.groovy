@@ -10,5 +10,5 @@ interface SfdcField {
   def String helpText()
   def String required()
   def String externalId()
-  def String discription()
+  def String description()
 }
